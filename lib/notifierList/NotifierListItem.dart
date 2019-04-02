@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:Notify.It_flutter/model/NotifierItem.dart';
 
 class NotifierListItem extends StatelessWidget {

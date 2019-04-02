@@ -1,29 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:Notify.It_flutter/redux/actions.dart';
+import 'package:Notify.It_flutter/model/NotifierItem.dart';
 
-Widget addNotifierDialog() {
-  return SimpleDialog(
-    title: Text("Add A Notifier"),
-    children: [
-      Container (
-        margin: const EdgeInsets.all(20.0),
-        child: AddNotifierForm()
-        ),
-      ],
-  );
+import 'dart:developer';
+
+
+class AddNotifierDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new StoreConnector<List<NotifierItem>, OnAddCallback> (
+      converter: (store) {
+        return (subreddit, searchTerms) => 
+          store.dispatch(AddNotifierAction(NotifierItem(subreddit, searchTerms)));
+        }, builder: (context, callback) {
+        return new SimpleDialog(
+          title: Text("Add A Notifier"),
+          children: [
+            Container (
+              margin: const EdgeInsets.all(20.0),
+              child: AddNotifierForm(callback)
+            ),
+          ],
+        );
+      }
+    );
+  }
 }
 
 class AddNotifierForm extends StatefulWidget {
+  final OnAddCallback callback;
+
+  AddNotifierForm(this.callback);
+
   @override
   AddNotifierFormState createState() {
-    return AddNotifierFormState();
+    return AddNotifierFormState(callback);
   }
 }
 
 class AddNotifierFormState extends State<AddNotifierForm> {
-  // Create a global key that will uniquely identify the Form widget and allow
-  // us to validate the form
-  //
-  // Note: This is a GlobalKey<FormState>, not a GlobalKey<MyCustomFormState>!
+  final subredditController = TextEditingController();
+  final searcHTermController = TextEditingController(); 
+  final OnAddCallback callback;
+
+  AddNotifierFormState(this.callback);
+
   final _formKey = GlobalKey<FormState>();
 
   @override 
@@ -36,6 +58,7 @@ class AddNotifierFormState extends State<AddNotifierForm> {
         children: [
           Text("I want to be notified when a post is made to:"),
           TextFormField(
+            controller: subredditController,
             decoration: InputDecoration(
               hintText: "reddit.com/r/"
             ),
@@ -48,6 +71,7 @@ class AddNotifierFormState extends State<AddNotifierForm> {
           SizedBox(height: 20),
           Text("That contains:"), 
           TextFormField(
+            controller: searcHTermController,
             validator: (value) {
               if (value.isEmpty) {
                 return 'Please enter notifier text';
@@ -59,12 +83,11 @@ class AddNotifierFormState extends State<AddNotifierForm> {
             child: RaisedButton(
               color: Colors.orange,
               onPressed: () {
-              if (_formKey.currentState.validate()) {
-                // If the form is valid, we want to show a Snackbar
-                Scaffold.of(context)
-                    .showSnackBar(SnackBar(content: Text('Processing Data')));
+                if (_formKey.currentState.validate()) {
+                  // If the form is valid, we want to show a Snackbar
+                  callback(subredditController.text, searcHTermController.text);
+                  Navigator.pop(context, true);
                 }
-                Navigator.pop(context, true);
               },
             child: Text('Submit'),
             ),
@@ -74,3 +97,5 @@ class AddNotifierFormState extends State<AddNotifierForm> {
     );
   }
 }
+
+typedef OnAddCallback = Function(String subreddit, String searchTerms);

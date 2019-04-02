@@ -5,6 +5,7 @@ import 'Landing.dart';
 import 'AddNotifierDialog.dart';
 import 'package:Notify.It_flutter/model/NotifierItem.dart';
 import 'package:Notify.It_flutter/redux/reducers.dart';
+import 'package:Notify.It_flutter/notifierList/NotifierList.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -99,12 +100,12 @@ class AfterSplash extends StatelessWidget {
       appBar: AppBar(
         title: Text("notify.it"),
       ),
-      body: LandingScreen(),
+      body: LandingScreen(), //Testwith NotifierList(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
             context: context,
-            builder: (_) => addNotifierDialog()
+            builder: (_) => AddNotifierDialog()
             );
           },
         tooltip: 'Increment',
