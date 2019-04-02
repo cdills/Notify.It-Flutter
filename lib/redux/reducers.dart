@@ -1,7 +1,7 @@
 import 'package:Notify.It_flutter/model/NotifierItem.dart';
 import 'actions.dart';
 
-List<NotifierItem> notifierItemsReducer( List<NotifierItem> notifiers, dynamic action) {
+List<NotifierItem> appReducers( List<NotifierItem> notifiers, dynamic action) {
   if (action is AddNotifierAction) {
     return addNotifier(notifiers, action);
   } else if (action is ToggleNotifierStateAction) {
