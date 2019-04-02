@@ -3,7 +3,6 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:Notify.It_flutter/model/NotifierItem.dart';
 import 'package:Notify.It_flutter/notifierList/NotifierListItem.dart';
 
-
 class NotifierList extends StatelessWidget {
   @override
   Widget build (BuildContext contect) {
