@@ -10,8 +10,8 @@ import 'package:redux/redux.dart';
 void main() {
  final store = new Store<List<NotifierItem>> (
    appReducers,
-   initialState: new List());
- 
+   initialState: new List()
+   );
   runApp(MyApp(store));
 }
 
