@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:Notify.It_flutter/model/NotifierItem.dart';
+import 'package:Notify.It_flutter/model/Notifier.dart';
 
 class NotifierListItem extends StatelessWidget {
-  final NotifierItem notifier;
+  final Notifier notifier;
 
   NotifierListItem(this.notifier);
 
