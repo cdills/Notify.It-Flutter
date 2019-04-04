@@ -18,7 +18,7 @@ class NotifierState{
 
   factory NotifierState.initial() {
     return new NotifierState(
-      notifiers: null
+      notifiers: List()
     );
   }
 }

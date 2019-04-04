@@ -7,4 +7,6 @@ final notifierReducer = combineReducers<NotifierState>([
 ]);
 
 NotifierState _addNotifier (NotifierState state, AddNotifierAction action) =>
-  state.copyWith(notifiers: action.notifiers);
+  state.copyWith(notifiers:
+    List.from(state.notifiers)..add(action.notifier)
+  );
