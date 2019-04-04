@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:Notify.It_flutter/redux/actions.dart';
-import 'package:Notify.It_flutter/model/NotifierItem.dart';
-
-import 'dart:developer';
+import 'package:Notify.It_flutter/redux/app/app_state.dart';
+import 'package:Notify.It_flutter/model/Notifier.dart';
+import 'package:Notify.It_flutter/ui/notifierList/notifierList_viewmodel.dart';
 
 
 class AddNotifierDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new StoreConnector<List<NotifierItem>, OnAddCallback> (
-      converter: (store) {
-        return (subreddit, searchTerms) => 
-          store.dispatch(AddNotifierAction(NotifierItem(subreddit, searchTerms)));
-        }, builder: (context, callback) {
+    return new StoreConnector<AppState, NotifierListViewModel> (
+      converter: (store) => NotifierListViewModel.fromStore(store),
+        builder: (context, viewModel) {
         return new SimpleDialog(
           title: Text("Add A Notifier"),
           children: [
             Container (
               margin: const EdgeInsets.all(20.0),
-              child: AddNotifierForm(callback)
+              child: AddNotifierForm(viewModel)
             ),
           ],
         );
@@ -29,22 +26,22 @@ class AddNotifierDialog extends StatelessWidget {
 }
 
 class AddNotifierForm extends StatefulWidget {
-  final OnAddCallback callback;
+  final NotifierListViewModel viewModel;
 
-  AddNotifierForm(this.callback);
+  AddNotifierForm(this.viewModel);
 
   @override
   AddNotifierFormState createState() {
-    return AddNotifierFormState(callback);
+    return AddNotifierFormState(viewModel);
   }
 }
 
 class AddNotifierFormState extends State<AddNotifierForm> {
   final subredditController = TextEditingController();
   final searcHTermController = TextEditingController(); 
-  final OnAddCallback callback;
+  final NotifierListViewModel viewModel;
 
-  AddNotifierFormState(this.callback);
+  AddNotifierFormState(this.viewModel);
 
   final _formKey = GlobalKey<FormState>();
 
@@ -85,7 +82,7 @@ class AddNotifierFormState extends State<AddNotifierForm> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   // If the form is valid, we want to show a Snackbar
-                  callback(subredditController.text, searcHTermController.text);
+                  viewModel.addNotifier(new Notifier (subredditController.text, searcHTermController.text));
                   Navigator.pop(context, true);
                 }
               },
