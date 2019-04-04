@@ -3,27 +3,25 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'Landing.dart';
 import 'AddNotifierDialog.dart';
-import 'package:Notify.It_flutter/model/NotifierItem.dart';
-import 'package:Notify.It_flutter/redux/reducers.dart';
+import 'package:Notify.It_flutter/redux/store.dart';
+import 'package:Notify.It_flutter/redux/app/app_state.dart';
 import 'package:Notify.It_flutter/notifierList/NotifierList.dart';
+
 import 'package:redux/redux.dart';
 
 void main() {
- final store = new Store<List<NotifierItem>> (
-   appReducers,
-   initialState: new List()
-   );
+  final store = createStore();
   runApp(MyApp(store));
 }
 
 class MyApp extends StatelessWidget {
-  final Store<List<NotifierItem>> store;
+  final Store<AppState> store;
 
   MyApp(this.store);
 
   @override
   Widget build(BuildContext context) {
-    return new StoreProvider<List<NotifierItem>>(
+    return new StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
         title: 'Flutter Demo',
