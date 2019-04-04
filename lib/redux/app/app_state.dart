@@ -1,10 +1,13 @@
 import 'package:meta/meta.dart';
+import 'package:Notify.It_flutter/redux/notifier/notifier_state.dart';
+import 'package:Notify.It_flutter/redux/notification/notification_state.dart';
+
 
 @immutable
 class AppState {
 
   final NotifierState notifierState;
-  final NotificationsState notificationState;
+  final NotificationState notificationState;
 
   AppState({
     @required this.notifierState,

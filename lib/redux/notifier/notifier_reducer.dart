@@ -1,6 +1,4 @@
-import 'package:meta/meta.dart';
-import 'package:redux/redux.dart';
-import 'package:Notify.It_flutter/model/Notifier.dart';
+import 'package:redux/redux.dart' show TypedReducer, combineReducers;
 import 'package:Notify.It_flutter/redux/notifier/notifier_state.dart';
 import 'package:Notify.It_flutter/redux/notifier/notifier_actions.dart';
 
