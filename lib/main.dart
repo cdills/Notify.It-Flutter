@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:splashscreen/splashscreen.dart';
-import 'Landing.dart';
-import 'AddNotifierDialog.dart';
 import 'package:Notify.It_flutter/redux/store.dart';
 import 'package:Notify.It_flutter/redux/app/app_state.dart';
-import 'package:Notify.It_flutter/notifierList/NotifierList.dart';
+import 'package:Notify.It_flutter/ui/notifierList/NotifierList.dart';
+import 'package:Notify.It_flutter/ui/Landing.dart';
+import 'package:Notify.It_flutter/ui/AddNotifierDialog.dart';
 
 import 'package:redux/redux.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     return new StoreProvider<AppState>(
       store: store,
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Notify.it',
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
@@ -44,18 +44,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
+
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
       seconds: 5,
       navigateAfterSeconds: AfterSplash(),
       title: new Text('notify.it',
-      style: new TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20.0
-      ),),
-      image: new Image.network('https://i.imgur.com/TyCSG9A.png'),
+        style: new TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20.0
+       ),
+      ),
       backgroundColor: Colors.orange,
       styleTextUnderTheLoader: new TextStyle(),
       photoSize: 100.0,
@@ -65,15 +65,33 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class AfterSplash extends StatelessWidget {
-  
+class AfterSplashState extends State<AfterSplash>{
+  int _selectedIndex = 0;
+
+  void _onItemTapped (index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("notify.it"),
       ),
-      body: LandingScreen(), //Testwith NotifierList(),
+      body: new Stack(
+        children: [
+          new Offstage(
+                offstage: _selectedIndex != 0,
+                child: LandingScreen()
+          ),
+          new Offstage(
+                offstage: _selectedIndex != 1,
+                child: NotifierList()
+          ),
+          ]
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -84,35 +102,20 @@ class AfterSplash extends StatelessWidget {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), 
-      bottomNavigationBar: new BottomNav() 
-    );
-  }
-}
-
-class BottomNav extends StatefulWidget {
-  @override
-  BottomNavState createState() => BottomNavState();
-} 
-
-class BottomNavState extends State<BottomNav> {
-  int _selectedIndex = 1;
-
-  void _onItemTapped (index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
+      bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Home')),
-          BottomNavigationBarItem(icon: Icon(Icons.today), title: Text('Today')),
-          BottomNavigationBarItem(icon: Icon(Icons.access_alarm), title: Text('History')),
+          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Notifiers')),
+          BottomNavigationBarItem(icon: Icon(Icons.today), title: Text('Notifications')),
         ],
         currentIndex: _selectedIndex,
         fixedColor: Colors.orangeAccent,
         onTap: _onItemTapped,
+      )
     );
   }
 }
+
+class AfterSplash extends StatefulWidget {
+  @override
+  AfterSplashState createState() => AfterSplashState();
+} 

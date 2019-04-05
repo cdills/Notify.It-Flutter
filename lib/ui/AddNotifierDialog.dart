@@ -94,5 +94,3 @@ class AddNotifierFormState extends State<AddNotifierForm> {
     );
   }
 }
-
-typedef OnAddCallback = Function(String subreddit, String searchTerms);
