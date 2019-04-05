@@ -23,15 +23,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new StoreProvider<AppState>(
-      store: store,
-      child: MaterialApp(
-        title: 'Notify.it',
-        theme: ThemeData(
-          primarySwatch: Colors.orange,
-        ),
-        home: MyHomePage(title: 'notify.it'),
-      )
-    );
+        store: store,
+        child: MaterialApp(
+          title: 'Notify.it',
+          theme: ThemeData(
+            primarySwatch: Colors.orange,
+          ),
+          home: MyHomePage(title: 'notify.it'),
+        ));
   }
 }
 
@@ -45,31 +44,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     return new SplashScreen(
-      seconds: 5,
-      navigateAfterSeconds: AfterSplash(),
-      title: new Text('notify.it',
-        style: new TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20.0
-       ),
-      ),
-      backgroundColor: Colors.orange,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 100.0,
-      onClick: ()=>print("Flutter Egypt"),
-      loaderColor: Colors.red
-    );
+        seconds: 5,
+        navigateAfterSeconds: AfterSplash(),
+        title: new Text(
+          'notify.it',
+          style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+        ),
+        backgroundColor: Colors.orange,
+        styleTextUnderTheLoader: new TextStyle(),
+        photoSize: 100.0,
+        onClick: () => print("Flutter Egypt"),
+        loaderColor: Colors.red);
   }
 }
 
-class AfterSplashState extends State<AfterSplash>{
+class AfterSplashState extends State<AfterSplash> {
   int _selectedIndex = 0;
 
-  void _onItemTapped (index) {
+  void _onItemTapped(index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -78,43 +73,31 @@ class AfterSplashState extends State<AfterSplash>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("notify.it"),
-      ),
-      body: new Stack(
-        children: [
-          new Offstage(
-                offstage: _selectedIndex != 0,
-                child: LandingScreen()
-          ),
-          new Offstage(
-                offstage: _selectedIndex != 1,
-                child: NotifierList()
-          ),
-          ]
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (_) => AddNotifierDialog()
-            );
+        appBar: AppBar(
+          title: Text("notify.it"),
+        ),
+        body: new Stack(children: [
+          new Offstage(offstage: _selectedIndex != 0, child: LandingScreen()),
+          new Offstage(offstage: _selectedIndex != 1, child: NotifierList()),
+        ]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showDialog(context: context, builder: (_) => AddNotifierDialog());
           },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
-      bottomNavigationBar: FancyBottomNavigation(
-        tabs: <TabData>[
-          TabData(iconData: Icons.home, title: 'Notifiers'),
-          TabData(iconData: Icons.today, title: 'Notifications'),
-        ],
-        onTabChangedListener: (position) => _onItemTapped(position),
-      )
-    );
+          tooltip: 'Increment',
+          child: Icon(Icons.add),
+        ),
+        bottomNavigationBar: FancyBottomNavigation(
+          tabs: <TabData>[
+            TabData(iconData: Icons.home, title: 'Notifiers'),
+            TabData(iconData: Icons.today, title: 'Notifications'),
+          ],
+          onTabChangedListener: (position) => _onItemTapped(position),
+        ));
   }
 }
 
 class AfterSplash extends StatefulWidget {
   @override
   AfterSplashState createState() => AfterSplashState();
-} 
+}
