@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:Notify.It_flutter/redux/store.dart';
 import 'package:Notify.It_flutter/redux/app/app_state.dart';
 import 'package:Notify.It_flutter/ui/notifierList/NotifierList.dart';
@@ -102,14 +103,12 @@ class AfterSplashState extends State<AfterSplash>{
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), 
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('Notifiers')),
-          BottomNavigationBarItem(icon: Icon(Icons.today), title: Text('Notifications')),
+      bottomNavigationBar: FancyBottomNavigation(
+        tabs: <TabData>[
+          TabData(iconData: Icons.home, title: 'Notifiers'),
+          TabData(iconData: Icons.today, title: 'Notifications'),
         ],
-        currentIndex: _selectedIndex,
-        fixedColor: Colors.orangeAccent,
-        onTap: _onItemTapped,
+        onTabChangedListener: (position) => _onItemTapped(position),
       )
     );
   }
