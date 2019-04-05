@@ -10,9 +10,10 @@ class NotifierList extends StatelessWidget {
     return new StoreConnector<AppState, NotifierListViewModel> (
       converter: (store) => NotifierListViewModel.fromStore(store),
       builder: (context, viewModel) {
-        return new ListView.builder(
+        return new ListView.separated(
           itemCount: viewModel.notifiers.length,
-          itemBuilder: (context, position) => new NotifierListItem(viewModel.notifiers[position])
+          itemBuilder: (context, position) => new NotifierListItem(viewModel.notifiers[position]),
+          separatorBuilder: (context, position) => Divider(),
         );
       }
     );

@@ -10,6 +10,8 @@ class NotifierListItem extends StatelessWidget {
   Widget build(BuildContext context ) {
     return new ListTile (
       title: new Text(notifier.subreddit),
+      leading: Icon(Icons.notifications_active, color: Colors.teal),
+      subtitle: Text("Text"),
     );
   }
 }
