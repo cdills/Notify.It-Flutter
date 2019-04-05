@@ -1,7 +1,7 @@
 import 'package:Notify.It_flutter/model/Notification.dart';
 
 class AddNotificationAction {
-  final List<Notification> notification;
+  final NotificationItem notification;
 
   AddNotificationAction(this.notification);
 }

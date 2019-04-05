@@ -3,12 +3,12 @@ import 'package:Notify.It_flutter/model/Notification.dart';
 
 @immutable
 class NotificationState {
-  final List<Notification> notifications;
+  final List<NotificationItem> notifications;
 
   NotificationState({this.notifications});
 
   NotificationState copyWith ({
-    List<Notification> notifications
+    List<NotificationItem> notifications
     }) {
       return new NotificationState(
         notifications: notifications ?? this.notifications
@@ -17,7 +17,7 @@ class NotificationState {
   
   factory NotificationState.initial () {
     return new NotificationState(
-      notifications: null
+      notifications: List()
     );
   }
 }
