@@ -8,10 +8,30 @@ class NotificationListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context ) {
-    return new ListTile (
-      title: new Text(notification.title),
-      leading: Icon(Icons.notifications),
-      subtitle: new Text(notification.body),
+    return new Card (
+      child: Column (
+        children: [
+            new ListTile (
+            title: new Text(notification.title),
+            leading: Icon(Icons.notifications),
+            subtitle: new Text(notification.body),
+          ),
+          ButtonTheme.bar( // make buttons use the appropriate styles for cards
+          child: ButtonBar(
+            children: <Widget>[
+              FlatButton(
+                child: const Text('DISMISS'),
+                onPressed: () { /* ... */ },
+              ),
+              FlatButton(
+                child: const Text('VIEW'),
+                onPressed: () { /* ... */ },
+              ),
+            ],
+          )
+        ),
+        ] 
+      )
     );
   }
 }

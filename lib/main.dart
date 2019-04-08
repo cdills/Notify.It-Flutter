@@ -7,7 +7,7 @@ import 'package:Notify.It_flutter/redux/app/app_state.dart';
 import 'package:Notify.It_flutter/ui/notifierList/NotifierList.dart';
 import 'package:Notify.It_flutter/ui/Landing.dart';
 import 'package:Notify.It_flutter/ui/AddNotifierDialog.dart';
-
+import 'package:Notify.It_flutter/ui/notificationList/NotificationList.dart';
 import 'package:redux/redux.dart';
 
 void main() {
@@ -78,7 +78,7 @@ class AfterSplashState extends State<AfterSplash> {
         ),
         body: new Stack(children: [
           new Offstage(offstage: _selectedIndex != 0, child: LandingScreen()),
-          new Offstage(offstage: _selectedIndex != 1, child: NotifierList()),
+          new Offstage(offstage: _selectedIndex != 1, child: NotificationList()),//NotifierList()),
         ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
